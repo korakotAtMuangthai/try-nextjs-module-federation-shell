@@ -4,10 +4,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 
 import Image from "next/image";
-import { Inter } from "next/font/google";
 import { useSession, signIn, signOut } from "next-auth/react";
-
-const inter = Inter({ subsets: ["latin"] });
 
 import { useState } from "react";
 import Link from "next/link";
@@ -28,7 +25,7 @@ export default function Home() {
   const { t } = useTranslation("common");
 
   return (
-    <main className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}>
+    <main className={`flex min-h-screen flex-col items-center justify-between p-24`}>
       <h1 className="text-3xl font-bold">TITLE: {t("title")}</h1>
       <RemoteComponent color={color} />
       <div className="space-x-3 flex items-center">
