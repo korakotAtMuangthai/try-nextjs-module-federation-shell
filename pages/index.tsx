@@ -1,3 +1,8 @@
+import { GetServerSidePropsContext } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+
+import { useTranslation } from "next-i18next";
+
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import { useSession, signIn, signOut } from "next-auth/react";
@@ -20,8 +25,11 @@ export default function Home() {
 
   const { data: session } = useSession();
 
+  const { t } = useTranslation("common");
+
   return (
     <main className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}>
+      <h1 className="text-3xl font-bold">TITLE: {t("title")}</h1>
       <RemoteComponent color={color} />
       <div className="space-x-3 flex items-center">
         <div>
@@ -151,4 +159,14 @@ export default function Home() {
       </div>
     </main>
   );
+}
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const { locale = "" } = context;
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
 }
