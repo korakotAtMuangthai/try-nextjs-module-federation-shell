@@ -1,2 +1,2 @@
-export * from './_types/index';
-export { default } from './_types/index';
+export * from './_types/components/RemoteComponent/index';
+export { default } from './_types/components/RemoteComponent/index';
