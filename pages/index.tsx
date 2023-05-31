@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,6 +18,8 @@ const RemoteComponent = dynamic(
 export default function Home() {
   const [color, setColor] = useState("#000");
 
+  const { data: session } = useSession();
+
   return (
     <main className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}>
       <RemoteComponent color={color} />
@@ -26,9 +29,27 @@ export default function Home() {
         </div>
         <div
           className="py-2 px-5 bg-slate-300 rounded-xl cursor-pointer"
-          onClick={() => setColor((color) => (color === "#000" ? "#f00" : "#000"))}
+          onClick={() => {
+            setColor((color) => (color === "#000" ? "#f00" : "#000"));
+          }}
         >
           Set Red
+        </div>
+        <div
+          className="py-2 px-5 rounded-xl cursor-pointer bg-black text-white"
+          onClick={() => {
+            signIn();
+          }}
+        >
+          Login
+        </div>
+        <div
+          className="py-2 px-5 rounded-xl cursor-pointer bg-black text-white"
+          onClick={() => {
+            signOut();
+          }}
+        >
+          Logout
         </div>
       </div>
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
